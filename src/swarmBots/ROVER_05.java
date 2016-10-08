@@ -17,7 +17,6 @@ import common.Coord;
 import common.MapTile;
 import common.ScanMap;
 import enums.Terrain;
-import rover_logic.SearchLogic;
 
 /**
  * The seed that this program is built on is a chat program example found here:
@@ -193,13 +192,14 @@ public class ROVER_05 {
 				
 				
 	
-				SearchLogic sc=new SearchLogic();
+
+				
 				// ***** MOVING *****
 				// try moving east 5 block if blocked
 				if (blocked) {
-					if(stepCount > 0){
-						
-						//out.println("MOVE E");
+					if(stepCount <= 0){
+						out.println("MOVE E");
+
 						//System.out.println("ROVER_05 request move E");
 						stepCount -= 1;
 					}
@@ -209,7 +209,7 @@ public class ROVER_05 {
 						goingSouth = !goingSouth;
 					}
 					
-//					for (int i = 0; i < 5; i++) {
+
 //						out.println("MOVE E");
 //						//System.out.println("ROVER_05 request move E");
 //						Thread.sleep(300);
@@ -369,8 +369,7 @@ public class ROVER_05 {
 			jsonScanMapIn = "";
 		}
 		StringBuilder jsonScanMap = new StringBuilder();
-		System.out.println("ROVER_05 incomming SCAN result - first readline: " + jsonScanMapIn);
-		
+
 		if(jsonScanMapIn.startsWith("SCAN")){	
 			while (!(jsonScanMapIn = in.readLine()).equals("SCAN_END")) {
 				//System.out.println("ROVER_05 incomming SCAN result: " + jsonScanMapIn);

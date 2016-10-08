@@ -7,16 +7,17 @@
 !src
 !src/
 !src/*
-!src/*/
-!src/*/*
 !src/**
 
 !libs
 !libs/
 !libs/*
-!libs/*/
-!libs/*/*
 !libs/**
+
+!Maps
+!Maps/
+!Maps/*
+!Maps/**
 
 !*.txt
 
