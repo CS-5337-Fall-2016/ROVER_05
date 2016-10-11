@@ -1,3 +1,4 @@
+
 package swarmBots;
 
 import java.io.BufferedReader;
@@ -13,6 +14,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import enums.RoverDriveType;
+import enums.RoverToolType;
+import common.Rover;
 import common.Coord;
 import common.MapTile;
 import common.ScanMap;
@@ -29,10 +33,14 @@ public class ROVER_05 {
 	BufferedReader in;
 	PrintWriter out;
 	String rovername;
-	ScanMap scanMap;
+	ScanMap scanMap;	
 	int sleepTime;
 	String SERVER_ADDRESS = "localhost";
 	static final int PORT_ADDRESS = 9537;
+	
+	RoverDriveType rovertdrivetype;
+	RoverToolType rovertooltype;
+	Rover rover;
 
 	public ROVER_05() {
 		// constructor
@@ -77,7 +85,13 @@ public class ROVER_05 {
 				}
 			}
 	
+			/*// Define the Drive Type as Tread
 			
+			// Set a Harvester as Tool_1
+			
+			// Set a Mineral Scanner as Tool_2
+			rover.setTool_2(RoverToolType.getEnum("RADAR_SENSOR"));	
+			rover.setDriveType(RoverDriveType.getEnum("TREADS"));*/
 			// ********* Rover logic setup *********
 			
 			String line = "";
@@ -161,13 +175,10 @@ public class ROVER_05 {
 				System.out.println(rovername + " currentLoc at start: " + currentLoc);
 				
 				// after getting location set previous equal current to be able to check for stuckness and blocked later
-				previousLoc = currentLoc;		
-				
-				
-
-				
+				previousLoc = currentLoc;	
 		
-	
+										
+				
 				// ***** do a SCAN *****
 
 				// gets the scanMap from the server based on the Rover current location
@@ -192,14 +203,21 @@ public class ROVER_05 {
 				
 				
 	
-
 				
 				// ***** MOVING *****
 				// try moving east 5 block if blocked
 				if (blocked) {
-					if(stepCount <= 0){
+					// pull the MapTile array out of the ScanMap object
+					MapTile[][] scanMapTiles = scanMap.getScanMap();
+					int centerIndex = (scanMap.getEdgeSize() - 1)/2;
+					if ( scanMapTiles[centerIndex+1][centerIndex ].getTerrain() == Terrain.ROCK								
+							|| scanMapTiles[centerIndex+1][centerIndex ].getTerrain() == Terrain.NONE) {
+						stepCount = 5;  //side stepping
+						out.println("MOVE S");
+					} 
+					else if(stepCount > 0){
+						
 						out.println("MOVE E");
-
 						//System.out.println("ROVER_05 request move E");
 						stepCount -= 1;
 					}
@@ -209,7 +227,7 @@ public class ROVER_05 {
 						goingSouth = !goingSouth;
 					}
 					
-
+//					for (int i = 0; i < 5; i++) {
 //						out.println("MOVE E");
 //						//System.out.println("ROVER_05 request move E");
 //						Thread.sleep(300);
@@ -227,9 +245,9 @@ public class ROVER_05 {
 					if (goingSouth) {
 						// check scanMap to see if path is blocked to the south
 						// (scanMap may be old data by now)
+						//|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.SAND
 						if (scanMapTiles[centerIndex][centerIndex +1].getHasRover() 
-								|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.ROCK
-								|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.SAND
+								|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.ROCK								
 								|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.NONE) {
 							blocked = true;
 							stepCount = 5;  //side stepping
@@ -244,10 +262,9 @@ public class ROVER_05 {
 						// (scanMap may be old data by now)
 						//System.out.println("ROVER_05 scanMapTiles[2][1].getHasRover() " + scanMapTiles[2][1].getHasRover());
 						//System.out.println("ROVER_05 scanMapTiles[2][1].getTerrain() " + scanMapTiles[2][1].getTerrain().toString());
-						
+						//		|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.SAND
 						if (scanMapTiles[centerIndex][centerIndex -1].getHasRover() 
-								|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.ROCK
-								|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.SAND
+								|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.ROCK						
 								|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.NONE) {
 							blocked = true;
 							stepCount = 5;  //side stepping
@@ -369,7 +386,8 @@ public class ROVER_05 {
 			jsonScanMapIn = "";
 		}
 		StringBuilder jsonScanMap = new StringBuilder();
-
+		System.out.println("ROVER_05 incomming SCAN result - first readline: " + jsonScanMapIn);
+		
 		if(jsonScanMapIn.startsWith("SCAN")){	
 			while (!(jsonScanMapIn = in.readLine()).equals("SCAN_END")) {
 				//System.out.println("ROVER_05 incomming SCAN result: " + jsonScanMapIn);
