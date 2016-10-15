@@ -4,4 +4,4 @@
     Cleared up our latest version of the code and pushed on Github.
     Synchronize with RoverSwarmCore and pushed on master.
   
-  Meeting on Friday 14/11/2016 4:45 pm:        
+  Meeting on Thursday 14/11/2016 6:30 pm Online:        
