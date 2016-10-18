@@ -60,9 +60,18 @@ public class Rover {
 		return this.roverName;
 	}
 	
+	public RoverDriveType getDriveType() {
+		return driveType;
+	}
+	// setter for Drive Type
+	public void setDriveType(RoverDriveType driveType) {
+		this.driveType = driveType;
+	}
+
 	public RoverDriveType getRoverDrive(){
 		return this.driveType;
 	}
+	
 	
 	public RoverToolType getTool_1(){
 		return this.tool_1;		
@@ -70,8 +79,16 @@ public class Rover {
 	
 	public RoverToolType getTool_2(){
 		return this.tool_2;		
+	}	
+	// Setters for Tool_1 and Tool_2
+	public void setTool_1(RoverToolType tool_1) {
+		this.tool_1 = tool_1;
 	}
-	
+
+	public void setTool_2(RoverToolType tool_2) {
+		this.tool_2 = tool_2;
+	}
+
 	public long getRoverLastGatherTime(){
 		return this.lastGatherTime;
 	}

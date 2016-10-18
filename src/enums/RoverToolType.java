@@ -34,7 +34,7 @@ public enum RoverToolType {
     		break;
     	case "RADAR_SENSOR":
     		output = RoverToolType.RADAR_SENSOR;
-    		break;
+    		break;    	
     	case "DRILL":
     		output = RoverToolType.DRILL;
     		break;
