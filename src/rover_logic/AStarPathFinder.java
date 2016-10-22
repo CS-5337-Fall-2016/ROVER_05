@@ -4,12 +4,7 @@ package rover_logic;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * A path finder implementation that uses the AStar heuristic based algorithm
- * to determine a path. 
- * 
- * @author Kevin Glass
- */
+
 public class AStarPathFinder implements PathFinder {
 	/** The set of nodes that have been searched through */
 	private ArrayList closed = new ArrayList();
