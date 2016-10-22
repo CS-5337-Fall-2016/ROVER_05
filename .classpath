@@ -6,5 +6,9 @@
 	<classpathentry kind="lib" path="libs/gson-2.3.1.jar"/>
 	<classpathentry kind="lib" path="libs/guava-jdk8-1.1.jar"/>
 	<classpathentry kind="lib" path="libs/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ishan/cs537/cs5337-fall-2016/ROVER_05/libs/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ishan/cs537/cs5337-fall-2016/ROVER_05/libs/gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ishan/cs537/cs5337-fall-2016/ROVER_05/libs/guava-jdk8-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ishan/cs537/cs5337-fall-2016/ROVER_05/libs/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
